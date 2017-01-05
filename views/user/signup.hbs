@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h1>Sign Up</h1>
+    
+    {{# if hasErrors }}
+      <div class="alert alert-danger">
+        {{# each messages}}
+          <p>{{ this }}</p>
+        {{/each}}
+      </div>
+    {{/if}}
+    
+    <form action="/user/signup" method="post">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" />
+      </div>
+      
+      <!-- Very important piece of set up to make impossible for another user use
+      the session of somebody else to sign up more accounts or do anything with that
+      account, it's for security and it should be in any authentification configuration -->
+      <input type='hidden' name='_csrf' value="{{ csrfToken }}" />
+      
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+      <a href="/user/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+    </form>
+  </div>
+</div>
